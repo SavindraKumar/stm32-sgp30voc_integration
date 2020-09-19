@@ -354,6 +354,9 @@
                     <state>$PROJ_DIR$\drivers\CMSIS\Include</state>
                     <state>$PROJ_DIR$\drivers\CMSIS\Device\ST\STM32F4xx\Include</state>
                     <state>$PROJ_DIR$\application</state>
+                    <state>$PROJ_DIR$\embedded-sgp\embedded-common</state>
+                    <state>$PROJ_DIR$\embedded-sgp\sgp30</state>
+                    <state>$PROJ_DIR$\embedded-sgp\sgp-common</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -2153,5 +2156,17 @@
                 <name>$PROJ_DIR$\drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc_ex.c</name>
             </file>
         </group>
+    </group>
+    <group>
+        <name>sgp30</name>
+        <file>
+            <name>$PROJ_DIR$\embedded-sgp\embedded-common\sensirion_common.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\sgp30\sensirion_hw_i2c_implementation.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\embedded-sgp\sgp30\sgp30.c</name>
+        </file>
     </group>
 </project>
