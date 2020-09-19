@@ -32,6 +32,11 @@
 #include "sensirion_arch_config.h"
 #include "sensirion_common.h"
 #include "sensirion_i2c.h"
+#include "stm32f4xx_hal.h"
+
+I2C_HandleTypeDef hi2c1;
+
+static void Error_Handler(void);
 
 /*
  * INSTRUCTIONS
@@ -61,7 +66,19 @@ int16_t sensirion_i2c_select_bus(uint8_t bus_idx) {
  * communication.
  */
 void sensirion_i2c_init(void) {
-    // IMPLEMENT
+  hi2c1.Instance = I2C1;
+  hi2c1.Init.ClockSpeed = 100000;
+  hi2c1.Init.DutyCycle = I2C_DUTYCYCLE_2;
+  hi2c1.Init.OwnAddress1 = 0;
+  hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+  hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+  hi2c1.Init.OwnAddress2 = 0;
+  hi2c1.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+  hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+  if (HAL_I2C_Init(&hi2c1) != HAL_OK)
+  {
+    Error_Handler();
+  }
 }
 
 /**
@@ -82,8 +99,16 @@ void sensirion_i2c_release(void) {
  * @returns 0 on success, error code otherwise
  */
 int8_t sensirion_i2c_read(uint8_t address, uint8_t* data, uint16_t count) {
-    // IMPLEMENT
-    return STATUS_FAIL;
+    int8_t ret = STATUS_FAIL;
+
+    HAL_StatusTypeDef status = HAL_I2C_Master_Receive(&hi2c1, address<<1, (uint8_t*)data, count, 100);
+    
+    if (HAL_OK == status)
+    {
+        return STATUS_OK;
+    }
+
+    return ret;
 }
 
 /**
@@ -99,8 +124,16 @@ int8_t sensirion_i2c_read(uint8_t address, uint8_t* data, uint16_t count) {
  */
 int8_t sensirion_i2c_write(uint8_t address, const uint8_t* data,
                            uint16_t count) {
-    // IMPLEMENT
-    return STATUS_FAIL;
+    int8_t ret = STATUS_FAIL;
+    
+    HAL_StatusTypeDef status = HAL_I2C_Master_Transmit(&hi2c1, address<<1, (uint8_t*)data, count, 100);
+    
+    if (HAL_OK == status)
+    {
+        return STATUS_OK;
+    }
+    
+    return ret;
 }
 
 /**
@@ -112,5 +145,27 @@ int8_t sensirion_i2c_write(uint8_t address, const uint8_t* data,
  * @param useconds the sleep time in microseconds
  */
 void sensirion_sleep_usec(uint32_t useconds) {
-    // IMPLEMENT
+    if(useconds >= 1000)
+    {
+        HAL_Delay(useconds / (uint32_t)1000);
+    }
+    else
+    {
+        HAL_Delay(1);
+    }
+}
+
+/**
+  * @brief  This function is executed in case of error occurrence.
+  * @param  None
+  * @retval None
+  */
+static void Error_Handler(void)
+{
+  /* USER CODE BEGIN Error_Handler */
+  /* User can add his own implementation to report the HAL error return state */
+  while(1) 
+  {
+  }
+  /* USER CODE END Error_Handler */ 
 }
