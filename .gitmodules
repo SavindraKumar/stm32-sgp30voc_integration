@@ -1,0 +1,3 @@
+[submodule "embedded-sgp"]
+	path = embedded-sgp
+	url = https://github.com/Sensirion/embedded-sgp.git
