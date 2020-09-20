@@ -354,6 +354,9 @@
                     <state>$PROJ_DIR$\drivers\CMSIS\Include</state>
                     <state>$PROJ_DIR$\drivers\CMSIS\Device\ST\STM32F4xx\Include</state>
                     <state>$PROJ_DIR$\application</state>
+                    <state>$PROJ_DIR$\embedded-sgp\embedded-common</state>
+                    <state>$PROJ_DIR$\embedded-sgp\sgp30</state>
+                    <state>$PROJ_DIR$\embedded-sgp\sgp-common</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -2118,10 +2121,19 @@
     <group>
         <name>application</name>
         <file>
+            <name>$PROJ_DIR$\application\init.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\application\main.c</name>
         </file>
         <file>
+            <name>$PROJ_DIR$\application\sgp_app.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\application\stm32f4xx_it.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\application\uart_app.c</name>
         </file>
     </group>
     <group>
@@ -2144,6 +2156,12 @@
                 <name>$PROJ_DIR$\drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_cortex.c</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_gpio.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_i2c.c</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pwr.c</name>
             </file>
             <file>
@@ -2152,6 +2170,21 @@
             <file>
                 <name>$PROJ_DIR$\drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc_ex.c</name>
             </file>
+            <file>
+                <name>$PROJ_DIR$\drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_uart.c</name>
+            </file>
         </group>
+    </group>
+    <group>
+        <name>sgp30</name>
+        <file>
+            <name>$PROJ_DIR$\embedded-sgp\embedded-common\sensirion_common.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\sgp30\sensirion_hw_i2c_implementation.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\embedded-sgp\sgp30\sgp30.c</name>
+        </file>
     </group>
 </project>
