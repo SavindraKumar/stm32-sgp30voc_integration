@@ -19,6 +19,7 @@
 //user defined header files
 #include "stm32f4xx_hal.h"
 #include "init.h"
+#include "uart_app.h"
 #include "sgp30.h"
 #include "sgp_git_version.h"
 
@@ -47,6 +48,7 @@ const char *SGP_DRV_VERSION_STR = "7.0.0";
 int main()
 {
     Init();
+    UARTInit();
 
     const char* driver_version = sgp30_get_driver_version();
     
