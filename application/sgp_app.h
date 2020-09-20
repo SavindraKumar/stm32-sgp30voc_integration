@@ -33,7 +33,15 @@
 //! @param[out]   None
 //! @return       None
 //
-void SgpApp(void);
+void SgpInit(void);
+
+//
+//! @brief Poll sgp
+//! @param[in]    None
+//! @param[out]   None
+//! @return       None
+//
+void SgpPoll(void);
 
 #endif // SGP_APP_H
 //****************************************************************************
