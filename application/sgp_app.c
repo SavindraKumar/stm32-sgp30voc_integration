@@ -25,6 +25,7 @@
 //****************************************************************************/
 //                           Defines and typedefs
 //****************************************************************************/
+#define PRINT_BUF_LEN   256
 
 //****************************************************************************/
 //                           Private Functions
@@ -40,7 +41,7 @@ const char *SGP_DRV_VERSION_STR = "7.0.0";
 //****************************************************************************/
 //                           Private variables
 //****************************************************************************/
-static char msg[256] = {0};
+static char msg[PRINT_BUF_LEN] = {0};
 
 
 //****************************************************************************/
@@ -66,6 +67,7 @@ void SgpInit(void)
     //first pass self test 
     SgpSelfTest();
     GetSgpInfo();
+
 }//end Init
 
 void SgpPoll(void)
@@ -102,7 +104,7 @@ void SgpPoll(void)
     
         err = sgp30_measure_iaq_blocking_read(&tvoc_ppb, &co2_eq_ppm);
         
-        if (err == STATUS_OK) 
+        if (STATUS_OK == err) 
         {
             sprintf(msg, "tVOC  Concentration: %dppb\r\n", tvoc_ppb);
             UARTPrint(msg);
