@@ -2127,6 +2127,9 @@
             <name>$PROJ_DIR$\application\main.c</name>
         </file>
         <file>
+            <name>$PROJ_DIR$\application\sgp_app.c</name>
+        </file>
+        <file>
             <name>$PROJ_DIR$\application\stm32f4xx_it.c</name>
         </file>
     </group>
