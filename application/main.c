@@ -16,6 +16,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 //user defined header files
 #include "stm32f4xx_hal.h"
 #include "init.h"
@@ -24,6 +25,7 @@
 #include "sgp_git_version.h"
 
 const char *SGP_DRV_VERSION_STR = "7.0.0";
+char msg[256] = {0};
 
 //****************************************************************************/
 //                           Defines and typedefs
@@ -54,11 +56,13 @@ int main()
     
     if (driver_version) 
     {
-        printf("SGP30 driver version %s\n", driver_version);
+        sprintf(msg,  "\nSGP30 driver version %s\r\n", driver_version);
+        UARTPrint(msg);
     } 
     else 
     {
-        printf("fatal: Getting driver version failed\n");
+        sprintf(msg, "fatal: Getting driver version failed\r\n");
+        UARTPrint(msg);
         return -1;
     }
 
@@ -78,15 +82,18 @@ int main()
 
         if (SGP30_ERR_UNSUPPORTED_FEATURE_SET == probe)
         {
-            printf("Sensor need at least feature set version 1.0 (0x20)\n");
+            sprintf(msg, "Sensor need at least feature set version 1.0 (0x20)\n");
+            UARTPrint(msg);
         }
                 
-        printf("SGP sensor probing failed\n");
+        sprintf(msg, "SGP sensor probing failed\r\n");
+        UARTPrint(msg);
         
         sensirion_sleep_usec(1000000);
     }
 
-    printf("SGP sensor probing successful\n");
+    sprintf(msg, "SGP sensor probing successful\r\n");
+    UARTPrint(msg);
 
     uint16_t feature_set_version;
     uint8_t product_type;
@@ -95,12 +102,15 @@ int main()
     
     if (STATUS_OK == err) 
     {
-        printf("Feature set version: %u\n", feature_set_version);
-        printf("Product type: %u\n", product_type);
+        sprintf(msg, "Feature set version: %u\r\n", feature_set_version);
+        UARTPrint(msg);
+        sprintf(msg, "Product type: %u\r\n", product_type);
+        UARTPrint(msg);
     } 
     else 
     {
-        printf("sgp30_get_feature_set_version failed!\n");
+        sprintf(msg, "sgp30_get_feature_set_version failed!\n");
+        UARTPrint(msg);
     }
     
     uint64_t serial_id;
@@ -109,11 +119,13 @@ int main()
     
     if (STATUS_OK == err)
     {
-        printf("SerialID: %u\n", serial_id);
+        sprintf(msg, "SerialID: %u\r\n", serial_id);
+        UARTPrint(msg);
     } 
     else 
     {
-        printf("sgp30_get_serial_id failed!\n");
+        sprintf(msg, "sgp30_get_serial_id failed!\n");
+        UARTPrint(msg);
     }
 
 
@@ -126,11 +138,13 @@ int main()
     
     if (STATUS_OK == err) 
     {
-        printf("sgp30_iaq_init done\n");
+        sprintf(msg, "sgp30_iaq_init done\r\n");
+        UARTPrint(msg);
     } 
     else 
     {
-        printf("sgp30_iaq_init failed!\n");
+        sprintf(msg, "sgp30_iaq_init failed!\n");
+        UARTPrint(msg);
     }
     
     //(B) If a recent baseline is available, set it after sgp30_iaq_init() for
@@ -149,12 +163,15 @@ int main()
         
         if (err == STATUS_OK) 
         {
-            printf("tVOC  Concentration: %dppb\n", tvoc_ppb);
-            printf("CO2eq Concentration: %dppm\n", co2_eq_ppm);
+            sprintf(msg, "tVOC  Concentration: %dppb\r\n", tvoc_ppb);
+            UARTPrint(msg);
+            sprintf(msg, "CO2eq Concentration: %dppm\r\n", co2_eq_ppm);
+            UARTPrint(msg);
         } 
         else 
         {
-            printf("error reading IAQ values\n");
+            sprintf(msg, "error reading IAQ values\r\n");
+            UARTPrint(msg);
         }
 
         // Persist the current baseline every hour

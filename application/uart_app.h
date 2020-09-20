@@ -35,6 +35,8 @@
 //
 void UARTInit(void);
 
+void UARTPrint(char *buf); 
+
 #endif // SGP_APP_H
 //****************************************************************************
 //                             End of file

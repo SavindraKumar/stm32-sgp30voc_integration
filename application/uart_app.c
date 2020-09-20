@@ -17,6 +17,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdio.h>
+#include <string.h>
 //user defined header files
 #include "stm32f4xx_hal.h"
 #include "uart_app.h"
@@ -66,6 +67,12 @@ void UARTInit(void)
 
   /* USER CODE END USART2_Init 2 */
 
+}
+
+void UARTPrint(char *buf)
+{
+    HAL_UART_Transmit(&huart2, (uint8_t*)buf, strlen(buf), 100); 
+    memset(buf, 0, strlen(buf) );
 }
 
 
